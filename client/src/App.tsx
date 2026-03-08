@@ -61,7 +61,7 @@ function App() {
       const ingressPath = window.location.pathname.replace('/api/hassio_ingress/', '');
       return `${protocol}//${host}:${port}/api/hassio_ingress/${ingressPath}`;
     }
-    return `${protocol}//${host}:3001`;
+    return `${protocol}//${host}:${__DEV_SERVER_PORT__}`;
   };
 
   return (

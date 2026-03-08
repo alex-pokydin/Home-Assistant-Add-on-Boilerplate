@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Run Prisma migrations and optionally seed the database.
+# Sync Prisma schema to database and optionally seed.
 # Usage: ./scripts/migrate.sh [--seed]
 
 set -e
 
 cd "$(dirname "$0")/.."
 
-echo "Running Prisma migrations..."
-pnpm --filter @ha-addon/server db:migrate:deploy
+echo "Syncing database schema..."
+pnpm --filter @ha-addon/server db:push
 
 if [ "$1" = "--seed" ]; then
   echo "Seeding database..."

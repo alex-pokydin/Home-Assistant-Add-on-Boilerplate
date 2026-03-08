@@ -52,13 +52,22 @@ After replacing, run `pnpm install` to regenerate the lockfile.
 - `maintainer` — your name and email
 
 ### README.md
-- Rewrite to describe your add-on
+- Rewrite for end users (people installing the add-on), not developers
+- Structure: what it does, how to install, how to configure, screenshots (optional)
+- Drop boilerplate dev details (tech stack table, project structure, dev setup)
+- Keep a short "Development" section at the bottom for contributors
+- See `docs/README-template.md` for a starting point
 
 ### client/index.html
 - `<title>` — browser tab title
 
+### icon.png & logo.png (project root)
+- `icon.png` — square add-on icon shown in HA add-on store and info page (PNG, 256×256 recommended)
+- `logo.png` — wider logo with add-on name (PNG, transparent background, ~256×128)
+- Replace both with your own branding (autogenerate corresponding to the add-on)
+
 ### client/public/favicon.svg
-- Replace with your own icon (SVG recommended)
+- Replace with your own icon (SVG recommended) — shown in the browser tab (autogenerate corresponding to the add-on)
 
 ### client/src/App.tsx
 - Header title
@@ -79,20 +88,39 @@ After replacing, run `pnpm install` to regenerate the lockfile.
 
 ---
 
-## 4. Database (optional)
+## 4. Dev ports (multi-project)
+
+Default ports: **3001** (server) and **5173** (Vite client). If developing multiple add-ons from this template simultaneously, change them per project:
+
+| File | Variable | Default |
+|---|---|---|
+| `server/.env` | `PORT` | `3001` |
+| `client/.env` | `VITE_PORT` | `5173` |
+| `client/.env` | `VITE_API_URL` | `http://localhost:3001` |
+
+The WebSocket URL and Vite proxy derive from these automatically — no code changes needed.
+Also update `.devcontainer/devcontainer.json` `forwardPorts` and `.vscode/tasks.json` port mappings if used.
+
+In production (HA), ports are managed by the container and ingress — no conflicts.
+
+---
+
+## 5. Database (optional)
 
 If your add-on needs persistence:
 
 1. Set `DATABASE_URL` in `server/.env` (SQLite is the zero-config default)
 2. Edit `server/prisma/schema.prisma` — add your models
-3. Run `pnpm --filter @your-scope/server db:migrate` to create the first migration
-4. To switch to PostgreSQL: change `provider` to `"postgresql"`, update column types, set a PG connection string
+3. Run `pnpm --filter @your-scope/server db:push` to sync the schema to the database
+4. To switch to PostgreSQL: change `provider` to `"postgresql"`, add the adapter package, update column types, set a PG connection string
+
+The boilerplate uses `db push` (schema sync) instead of migrations — simpler for single-user add-ons. On each startup, `run.sh` runs `prisma db push` to create/update tables as needed.
 
 If your add-on does NOT need a database, no action needed — the server runs fine without one.
 
 ---
 
-## 5. After setup
+## 6. After setup
 
 - [ ] `pnpm install` — regenerate lockfile with new package names
 - [ ] `pnpm prisma:generate` — regenerate Prisma client (if using DB)

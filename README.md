@@ -101,7 +101,7 @@ pnpm addon:build
 
 1. **Add API routes**: Create files in `server/routes/`, mount in `server/routes/index.ts`
 2. **Add pages**: Create folders in `client/src/pages/`, import in `App.tsx`
-3. **Add DB models**: Edit `server/prisma/schema.prisma`, run migrations
+3. **Add DB models**: Edit `server/prisma/schema.prisma`, run `pnpm --filter @ha-addon/server db:push`
 4. **Add shared types**: Edit `types/index.ts`
 5. **Add WebSocket events**: Extend `WebSocketManager` and `useWebSocket` hook types
 6. **HA config options**: Edit `config.yaml` schema, access in `run.sh` via `bashio::config`

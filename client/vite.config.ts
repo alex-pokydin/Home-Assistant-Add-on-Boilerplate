@@ -36,6 +36,7 @@ export default defineConfig(({ mode }) => {
     base: './',
     define: {
       __ADDON_VERSION__: JSON.stringify(process.env.ADDON_VERSION || '0.1.0'),
+      __DEV_SERVER_PORT__: JSON.stringify(process.env.VITE_API_URL?.match(/:(\d+)/)?.[1] || '3001'),
     },
   }
 })

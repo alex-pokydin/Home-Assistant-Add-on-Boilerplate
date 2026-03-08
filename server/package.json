@@ -14,7 +14,7 @@
     "db:reset": "prisma migrate reset --force",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
-    "db:setup": "prisma migrate deploy && prisma db seed"
+    "db:setup": "prisma db push && prisma db seed"
   },
   "prisma": {
     "seed": "ts-node-dev --transpile-only prisma/seed.ts"

@@ -16,7 +16,7 @@
     "client:build": "pnpm --filter @ha-addon/client build",
     "addon:build": "docker build -t ha-addon-boilerplate:latest .",
     "prisma:generate": "pnpm --filter @ha-addon/server db:generate",
-    "prisma:migrate": "pnpm --filter @ha-addon/server db:migrate:deploy",
+    "prisma:sync": "pnpm --filter @ha-addon/server db:push",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "bump-version": "node scripts/bump-version.js",

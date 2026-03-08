@@ -24,7 +24,7 @@
         "run",
         "--rm",
         "-p",
-        "3000:3000",
+        "3001:3001",
         "-v",
         "/tmp/addon_data:/data",
         "local/ha-addon-boilerplate"
